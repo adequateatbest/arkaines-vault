@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
+.venv/
 *.patched_test.sv
 *.edited_test.sv
 *.unique_rng_test.sv
