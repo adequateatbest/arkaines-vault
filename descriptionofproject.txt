@@ -1,0 +1,23 @@
+I'm building a Diablo 1 save editor. I've attached two files:
+
+diablo1-save-editor-spec.md — a spec covering everything reverse-engineered from a real save file this session: the MPQ container format, the game's custom save encryption, both player-data struct layouts (the compact hero format and the raw game format, and why you need both), item identity tables, and a suggested architecture.
+diablo1-save-editor-starter.zip — working reference code from that same session, verified against a real save file. Contains:
+reference_code/ — a tested implementation of the save cipher, the PKWARE decompressor, the safe MPQ-patching strategy (important: a naive full-archive-rewrite approach crashes the real game even though it's spec-legal MPQ — this code avoids that), and struct parsers for both save formats.
+reference_source/ — relevant excerpts from the devilution decompilation (item logic, save/load code, struct/enum definitions) for cross-referencing exact game behavior.
+README.md — explains what's in each file, what's verified vs. still needs building, and a suggested build order.
+
+Scope for v1:
+
+Item injection and editing (equip slots, backpack, belt)
+Character stat editing (level, experience, gold, attributes, HP/mana)
+Explicitly not doing yet: ground-item placement, quest-state editing, multiplayer saves
+
+Interface: GUI eventually, but let's build the format/logic core first as a plain CLI so we can verify the byte-level stuff works against a real save before investing in UI. Framework for the GUI is undecided, open to your recommendation once we get there.
+
+Please start by:
+
+Unzipping the starter kit and reading through it alongside the spec, flagging anything ambiguous or worth double-checking.
+Setting up the project structure per the spec's architecture section, refactoring the starter kit's scratch scripts into the proposed modules (mpq.py, dcodec.py, pkplayer.py, rawplayer.py, character.py, itemdata.py) rather than starting from scratch.
+Following the README's suggested first steps: get the cipher decoding a real save end-to-end first, generate itemdata.py from the included itemdat.cpp rather than hand-transcribing, then get the MPQ write path solid before building anything on top of it.
+
+I'll be testing against my own real save files as we go. I've uploaded an example D1 save file (single_0.sv) for reference

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.patched_test.sv
+*.edited_test.sv
+*.unique_rng_test.sv
+
+# personal save data / superseded starter archive -- see README for setup
+single_0.sv
+diablo1-save-editor-starter.zip
